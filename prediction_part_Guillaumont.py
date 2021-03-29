@@ -6,7 +6,7 @@ import numpy as np
 import time
 from datetime import datetime
 #https://www.historique-meteo.net/site/export.php?ville_id=192
-urlweather ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQX5i3DZ2AoGlj_sHXpUF3UKP9I-JaigZTdnFia60TEJdGMf6U0ta7-38bw1Txlkgy4yXIp16LpA762/pub?output=csv' 
+urlweather = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX5i3DZ2AoGlj_sHXpUF3UKP9I-JaigZTdnFia60TEJdGMf6U0ta7-38bw1Txlkgy4yXIp16LpA762/pub?output=csv' 
 weather = pd.read_csv(urlweather)
 data = pd.read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vQVtdpXMHB4g9h75a0jw8CsrqSuQmP5eMIB2adpKR5hkRggwMwzFy5kB-AIThodhVHNLxlZYm8fuoWj/pub?gid=2105854808&single=true&output=csv')
 #%% init data
@@ -31,7 +31,7 @@ weather['PRECIP_TOTAL_DAY_M'] = weather['PRECIP_TOTAL_DAY_M'].astype(float)
 weather.loc[weather['PRECIP_TOTAL_DAY_M'] > 10,'PRECIP_TOTAL_DAY_M'] = 0 # weird values are 0
 # %% make one df with weather and data_day
 dataweather = pd.DataFrame()
-dataweather['Rain'] =list(weather['PRECIP_TOTAL_DAY_M'])
+dataweather['Rain'] = list(weather['PRECIP_TOTAL_DAY_M'])
 dataweather['Daily_bikes'] = list(data_day["Vélos ce jour / Today's total"]) 
 dataweather.index = weather['Date']
 # %% OLS
@@ -45,7 +45,7 @@ plt.plot(dataweather.index, dataweather.Daily_bikes,'x')
 # %% OLS only fridays
 datafriday = dataweather[1::7]
 Xf = datafriday['Rain']
-Xf= sm.add_constant(Xf)
+Xf = sm.add_constant(Xf)
 Yf = datafriday['Daily_bikes']
 f_model = sm.OLS(Yf,Xf)
 f_results = f_model.fit()
@@ -71,7 +71,7 @@ print('La pluie est un evenement qui arrive relativement peu, la proportion de j
 janfridaydata = datafriday[datafriday.index > '2021-01-01']
 plt.plot(janfridaydata.index, janfridaydata['Daily_bikes'],'x')
 Xjanf = janfridaydata['Rain']
-Xjanf= sm.add_constant(Xjanf)
+Xjanf = sm.add_constant(Xjanf)
 Yjanf = janfridaydata['Daily_bikes']
 janf_model = sm.OLS(Yjanf,Xjanf)
 janf_results = janf_model.fit()
