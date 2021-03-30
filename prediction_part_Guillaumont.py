@@ -13,9 +13,10 @@ data = pd.read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vQVtdpXMHB4g
 data = data[data.columns[:4]].dropna(how = 'all') # remove empty cells and nan's cells
 del data[data.columns[1]]
 del data[data.columns[1]]
-# data['Date'] = pd.to_datetime(data['Date'])
+data['Date'] = pd.to_datetime(data['Date'])
 data_day = data.drop_duplicates('Date', keep = 'last', inplace = False)
-# data_day = data_day.replace(data_day.iloc[0,0],pd.to_datetime('2020/03/12'))
+data_day[data_day["Date"] < '2021-04-02']
+
 
 #%% Init weather
 cPrecip = [weather.columns[0],weather.columns[7]] # keep usefull columns
@@ -56,7 +57,7 @@ plt.plot(datafriday.index, datafriday.Daily_bikes,'x')
 novfridaydata = datafriday[datafriday.index > '2020-11-01']
 
 Xnovf = novfridaydata['Rain']
-Xnovf= sm.add_constant(Xnovf)
+Xnovf = sm.add_constant(Xnovf)
 Ynovf = novfridaydata['Daily_bikes']
 novf_model = sm.OLS(Ynovf,Xnovf)
 novf_results = novf_model.fit()
