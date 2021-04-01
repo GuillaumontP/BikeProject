@@ -50,8 +50,7 @@ class Visualization(object):
 
     def render(self):
         display(self._container)
-#############################################################################################
-# mybinder
+
     def update_date(self,b):
         day = self.FloatSlider1.value 
         month = self.FloatSlider2.value
