@@ -1,4 +1,4 @@
-# %%
+# %% Can't actualize datas on the display
 from IPython.display import display
 import ipywidgets as widgets
 import numpy as np
