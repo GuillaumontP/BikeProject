@@ -36,6 +36,7 @@ dataweather['Rain'] = list(weather['PRECIP_TOTAL_DAY_M'])
 dataweather['Daily_bikes'] = list(data_day["Vélos ce jour / Today's total"]) 
 dataweather.index = weather['Date']
 # %% OLS
+plt.close()
 X = dataweather['Rain']
 X = sm.add_constant(X)
 Y = dataweather['Daily_bikes']
@@ -44,6 +45,7 @@ results = model.fit()
 print(results.params)
 plt.plot(dataweather.index, dataweather.Daily_bikes,'x')
 # %% OLS only fridays
+plt.close()
 datafriday = dataweather[1::7]
 Xf = datafriday['Rain']
 Xf = sm.add_constant(Xf)
@@ -54,6 +56,7 @@ f_results.params
 plt.plot(datafriday.index, datafriday.Daily_bikes,'x')
 
 # %% OLS friday since Nov 2020
+plt.close()
 novfridaydata = datafriday[datafriday.index > '2020-11-01']
 
 Xnovf = novfridaydata['Rain']
@@ -67,8 +70,10 @@ novcoef = np.polyfit(list(range(0,len(novfridaydata['Daily_bikes']))), novfriday
 predictNov = np.polyval(novcoef,len(novfridaydata['Daily_bikes'])+1)
 print(predictNov)
 plt.plot(novfridaydata.index, novfridaydata['Daily_bikes'],'x')
+
 print('La pluie est un evenement qui arrive relativement peu, la proportion de jour avec de la pluie le vendredi depuis le premier novembre est {} '.format((1-(novfridaydata['Rain'] == 0).sum()/len(novfridaydata['Rain'])).round(2)))
 # %% OLS friday since Jan 2021
+plt.close
 janfridaydata = datafriday[datafriday.index > '2021-01-01']
 plt.plot(janfridaydata.index, janfridaydata['Daily_bikes'],'x')
 Xjanf = janfridaydata['Rain']
