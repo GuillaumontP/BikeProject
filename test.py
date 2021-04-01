@@ -46,7 +46,7 @@ import tkinter
 import time
 import PIL   
 import gmaps
-gmaps.configure(api_key ='AIzaSyDy-xM-RHIPiqrDO3KDC4y3IlGdHiEV7BA') #personnal API key
+gmaps.configure(api_key ='') #personnal API key
 PlaceCom_coordinates = (43.608536, 3.879582)
 fig = gmaps.figure(center = PlaceCom_coordinates, zoom_level = 12, display_toolbar = False, map_type = 'SATELLITE')
 marker_location =location[['Latitude','Longitude']].values.tolist()
